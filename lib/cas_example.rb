@@ -24,12 +24,16 @@ class CasExample < Sinatra::Base
     process_cas_login(request, session)    
   end
 
-  get "/" do        
-    erb :index unless logged_in      
-    erb :home 
+  get "/" do   
+    puts "ticket: #{session[:cas_ticket]}"  
+    if !logged_in?(request, session) then       
+      erb :index
+    else      
+      erb :home
+    end
   end
   post "/reset" do
-    redirect '/profile'  if logged_in 
+    redirect '/'  if logged_in?(request, session)
     email = params[:user][:email].gsub(/\s+/, "")
     v = @@us.resetpassword(email)
     case v[:code]
@@ -43,7 +47,7 @@ class CasExample < Sinatra::Base
     redirect "/"
   end
   get "/redirect" do
-    require_authorization(request, session) unless logged_in    
+    require_authorization(request, session) unless logged_in?(request, session)    
     redirect '/'
   end
   
@@ -69,7 +73,7 @@ class CasExample < Sinatra::Base
   end
   # post register
   post "/signup" do
-    redirect "/profile" if logged_in
+    redirect "/" if logged_in?(request, session)
 
 
     email = params[:user][:email].gsub(/\s+/, "")
@@ -120,11 +124,14 @@ class CasExample < Sinatra::Base
   get "/logout" do    
     session[:cas_user] = ''
     session[:cas_ticket] = ''
-    session[:logged_in] = false
+    puts "logout: #{session[:cas_ticket]}"     
     redirect logout_url
   end
   
   helpers do
+     def logged_in?(request, session)
+      session[:cas_ticket] && !session[:cas_ticket].empty?    
+    end
     def flash_types
       [:success, :notice, :warning, :error]
     end

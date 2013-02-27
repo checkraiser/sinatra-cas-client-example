@@ -27,8 +27,7 @@ module CasHelpers
 
       if st.success
         session[:cas_ticket] = st.ticket
-        session[:cas_user] = st.user
-        session[:logged_in] = true
+        session[:cas_user] = st.user        
       else
         raise "Service Ticket validation failed! #{st.failure_code} - #{st.failure_message}"
       end
@@ -36,9 +35,8 @@ module CasHelpers
 
   end
 
-  def logged_in
-    #session[:cas_ticket] && !session[:cas_ticket].empty?
-    session[:logged_in] && session[:logged_in] == true
+  def logged_in?(request, session)
+    session[:cas_ticket] && !session[:cas_ticket].empty?    
   end
 
   def require_authorization(request, session)
