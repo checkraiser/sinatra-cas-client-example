@@ -3,7 +3,7 @@ require 'rubycas-client'
 
 module CasHelpers
 
-  CAS_CLIENT = CASClient::Client.new(:cas_base_url => ENV['CAS_BASE_URL'], :log => Logger.new(STDOUT), :ticket_store_config => {:storage_dir => ENV['TICKET_STORE_DIR']})
+  CAS_CLIENT = CASClient::Client.new(:cas_base_url => 'http://acc.hpu.edu.vn', :log => Logger.new(STDOUT), :ticket_store_config => {:storage_dir => ENV['TICKET_STORE_DIR']})
 
   def need_authentication(request, session)
     if session[:cas_ticket]
@@ -28,6 +28,7 @@ module CasHelpers
       if st.success
         session[:cas_ticket] = st.ticket
         session[:cas_user] = st.user
+        session[:logged_in] = true
       else
         raise "Service Ticket validation failed! #{st.failure_code} - #{st.failure_message}"
       end
@@ -35,8 +36,9 @@ module CasHelpers
 
   end
 
-  def logged_in?(request, session)
-    session[:cas_ticket] && !session[:cas_ticket].empty?
+  def logged_in
+    #session[:cas_ticket] && !session[:cas_ticket].empty?
+    session[:logged_in] && session[:logged_in] == true
   end
 
   def require_authorization(request, session)

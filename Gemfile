@@ -1,5 +1,15 @@
 # A sample Gemfile
 source "https://rubygems.org"
 
+gem "puma"
 gem "sinatra"
 gem "rubycas-client"
+gem "data_mapper"
+gem "dm-validations"
+gem "celluloid"
+gem "rack-flash3"
+gem "require_relative"
+gem "savon"
+gem "pony"
+gem "dm-postgres-adapter"
+gem "rack_csrf"

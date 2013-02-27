@@ -1,0 +1,259 @@
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+  <title>GroundworkCSS &hearts;</title>
+  <!-- Modernizr -->
+  <script src="./js/libs/modernizr-2.6.2.min.js"></script>
+  <!-- jQuery -->
+  <script type="text/javascript" src="./js/libs/jquery-1.8.2.min.js"></script>
+  <!-- GroundworkCSS -->
+  <link type="text/css" rel="stylesheet" href="./css/groundwork.css">
+  <!--[if IE]>
+  <link type="text/css" rel="stylesheet" href="./css/groundwork-ie.css">
+  <![endif]-->
+  <!--[if lt IE 9]>
+  <script type="text/javascript" src="./js/libs/html5shiv.min.js"></script>
+  <![endif]-->
+  <!--[if IE 7]>
+  <link type="text/css" rel="stylesheet" href="./css/font-awesome-ie7.min.css">
+  <![endif]-->
+  <script type="text/javascript">
+    // fallback if SVG unsupported
+    Modernizr.load({
+      test: Modernizr.svg,
+      nope: './css/no-svg.css'
+    });
+    // polyfill for HTML5 placeholders
+    Modernizr.load({
+      test: Modernizr.input.placeholder,
+      nope: [
+        './css/placeholder_polyfill.css',
+        './js/libs/placeholder_polyfill.jquery.js'
+      ]
+    });
+  </script>
+</head>
+<body>
+  <header class="white band padded">
+    <div class="container">
+      <h2>We've Taken Care of the Groundwork</h2>
+      <nav class="inline gap-top">
+        <ul>
+          <li><a href="./home.html"><i class="icon-home"></i></a></li>
+          <li><a href="./layout-1.html">Layout 1</a></li>
+          <li><a href="./layout-2.html">Layout 2</a></li>
+          <li><a href="./layout-3.html">Layout 3</a></li>
+          <li><a href="./layout-4.html">Layout 4</a></li>
+          <li><a href="./layout-5.html">Layout 5</a></li>
+          <li><a href="./kitchen-sink.html">Components</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  
+  <div class="container">
+
+
+    <div class="row">
+      <div class="two thirds"><img width="100%" src="http://placehold.it/350x150" /></div>
+      <div class="one third">
+      <fieldset>
+            <legend>Example Form</legend>
+            <div class="row">
+              <div class="one whole padded">
+                <label for="name">First &amp; Last Name</label>
+                <input type="text" placeholder="First &amp; Last Name" id="name">
+              </div>
+            </div>
+            <div class="row">
+              <div class="one whole padded">
+                <label for="email">Email Address</label>
+                <input type="email" placeholder="you@example.com" id="email">
+              </div>
+            </div>
+            <div class="row">
+              <div class="one whole padded">
+                <label for="address">Address</label>
+                <input type="text" placeholder="Street Address" id="address">
+              </div>
+            </div>
+            <div class="row">
+              <div class="one half padded">
+                <input type="text" placeholder="City">
+              </div>
+              <div class="one fourth padded">
+                <span class="select">
+                  <select class="unselected">
+                    <option selected="" disabled="" value="">State</option>
+                    <option value="AL">Alabama</option>
+                    <option value="AK">Alaska</option>
+                    <option value="AZ">Arizona</option>
+                    <option value="AR">Arkansas</option>
+                    <option value="CA">California</option>
+                    <option value="CO">Colorado</option>
+                    <option value="CT">Connecticut</option>
+                    <option value="DE">Delaware</option>
+                    <option value="FL">Florida</option>
+                    <option value="GA">Georgia</option>
+                    <option value="HI">Hawaii</option>
+                    <option value="ID">Idaho</option>
+                    <option value="IL">Illinois</option>
+                    <option value="IN">Indiana</option>
+                    <option value="IA">Iowa</option>
+                    <option value="KS">Kansas</option>
+                    <option value="KY">Kentucky</option>
+                    <option value="LA">Louisiana</option>
+                    <option value="ME">Maine</option>
+                    <option value="MD">Maryland</option>
+                    <option value="MA">Massachusetts</option>
+                    <option value="MI">Michigan</option>
+                    <option value="MN">Minnesota</option>
+                    <option value="MS">Mississippi</option>
+                    <option value="MO">Missouri</option>
+                    <option value="MT">Montana</option>
+                    <option value="NE">Nebraska</option>
+                    <option value="NV">Nevada</option>
+                    <option value="NH">New Hampshire</option>
+                    <option value="NJ">New Jersey</option>
+                    <option value="NM">New Mexico</option>
+                    <option value="NY">New York</option>
+                    <option value="NC">North Carolina</option>
+                    <option value="ND">North Dakota</option>
+                    <option value="OH">Ohio</option>
+                    <option value="OK">Oklahoma</option>
+                    <option value="OR">Oregon</option>
+                    <option value="PA">Pennsylvania</option>
+                    <option value="RI">Rhode Island</option>
+                    <option value="SC">South Carolina</option>
+                    <option value="SD">South Dakota</option>
+                    <option value="TN">Tennessee</option>
+                    <option value="TX">Texas</option>
+                    <option value="UT">Utah</option>
+                    <option value="VT">Vermont</option>
+                    <option value="VA">Virginia</option>
+                    <option value="WA">Washington</option>
+                    <option value="WV">West Virginia</option>
+                    <option value="WI">Wisconsin</option>
+                    <option value="WY">Wyoming</option>
+                    <option value="AS">American Samoa</option>
+                    <option value="DC">District of Columbia</option>
+                    <option value="FM">Federated States of Micronesia</option>
+                    <option value="GU">Guam</option>
+                    <option value="MH">Marshall Islands</option>
+                    <option value="MP">Northern Mariana Islands</option>
+                    <option value="PW">Palau</option>
+                    <option value="PR">Puerto Rico</option>
+                    <option value="VI">Virgin Islands</option>
+                    <option value="AE">Armed Forces Africa</option>
+                    <option value="AA">Armed Forces Americas</option>
+                    <option value="AE">Armed Forces Canada</option>
+                    <option value="AE">Armed Forces Europe</option>
+                    <option value="AE">Armed Forces Middle East</option>
+                    <option value="AP">Armed Forces Pacific</option>
+                    <option value="AB">Alberta</option>
+                    <option value="BC">British Columbia</option>
+                    <option value="MB">Manitoba</option>
+                    <option value="NB">New Brunswick</option>
+                    <option value="NL">Newfoundland and Labrador</option>
+                    <option value="NS">Nova Scotia</option>
+                    <option value="NT">Northwest Territories</option>
+                    <option value="NU">Nunavut</option>
+                    <option value="ON">Ontario</option>
+                    <option value="PE">Prince Edward Island</option>
+                    <option value="QC">Quebec</option>
+                    <option value="SK">Saskatchewan</option>
+                    <option value="YT">Yukon Territory</option>
+                  </select>
+                </span>
+              </div>
+              <div class="one fourth padded">
+                <input type="text" placeholder="Zip Code">
+              </div>
+            </div>
+            <div class="row">
+              <div class="one whole padded">
+                <label for="message">Special Instructions</label>
+                <textarea placeholder="Enter your message..." id="message"></textarea>
+              </div>
+            </div>
+            <div class="row">
+              <div class="one whole padded">
+                <label for="twitter">Twitter</label>
+                <div class="row">
+                  <div class="one half pad-right">
+                    <div class="row">
+                      <div class="one mobile sixth">
+                        <span class="prefix">@</span>
+                      </div>
+                      <div class="five mobile sixths">
+                        <input type="text" placeholder="username" name="twitter">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="one half pad-left">
+                    <div class="row">
+                      <div class="three mobile fifths">
+                        <input type="text" placeholder="pick username" name="sidereel">
+                      </div>
+                      <div class="two mobile fifths">
+                        <span class="suffix">@example.com</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="one whole padded">
+                <label for="things">Pick a thing:</label>
+                <ul class="radio-list">
+                  <li><input type="radio" checked="" name="things" id="things1"> <label for="things1" class="inline">Thing one</label></li>
+                  <li><input type="radio" name="things" id="things2"> <label for="things2" class="inline">Thing two</label></li>
+                </ul>
+              </div>
+            </div>
+            <div class="row">
+              <div class="one whole padded">
+                <button>Submit</button> <button class="warning">Cancel</button>
+              </div>
+            </div>
+            <div class="row">
+              <div class="one whole padded">
+                <input type="checkbox" checked="" name="allthings" id="things3"> <label for="things3" class="inline">I want all the things!</label>
+              </div>
+            </div>
+          </fieldset>
+      </div>
+
+    </div>
+
+
+    
+  </div>
+  <!-- scripts -->
+  <script type="text/javascript" src="./js/plugins/jquery.orbit-1.4.0.js"></script>
+  <script type="text/javascript" src="./js/groundwork.js"></script>
+
+  <!-- google analytics -->
+  <script type="text/javascript">
+
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-XXXXXXXX-X']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+
+  </script>
+
+</body>
+</html>

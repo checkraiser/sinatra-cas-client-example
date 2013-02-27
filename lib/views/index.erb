@@ -1,0 +1,287 @@
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+  <title>HPU Central Authentication Service</title>
+  <!-- Modernizr -->
+  <script src="/js/libs/modernizr-2.6.2.min.js"></script>
+  <!-- jQuery -->
+  <script type="text/javascript" src="/js/libs/jquery-1.8.2.min.js"></script>
+  <script type="text/javascript" src="/js/jquery-ui.js"></script>
+  <!-- GroundworkCSS -->
+
+  <link type="text/css" rel="stylesheet" href="/css/groundwork.css">
+  <link type="text/css" rel="stylesheet" href="/css/jquery-ui.css">
+  <!--[if IE]>
+  <link type="text/css" rel="stylesheet" href="./css/groundwork-ie.css">
+  <![endif]-->
+  <!--[if lt IE 9]>
+  <script type="text/javascript" src="./js/libs/html5shiv.min.js"></script>
+  <![endif]-->
+  <!--[if IE 7]>
+  <link type="text/css" rel="stylesheet" href="./css/font-awesome-ie7.min.css">
+  <![endif]-->
+  <script type="text/javascript">
+    // fallback if SVG unsupported
+    Modernizr.load({
+      test: Modernizr.svg,
+      nope: '/css/no-svg.css'
+    });
+    // polyfill for HTML5 placeholders
+    Modernizr.load({
+      test: Modernizr.input.placeholder,
+      nope: [
+        '/css/placeholder_polyfill.css',
+        '/js/libs/placeholder_polyfill.jquery.js'
+      ]
+    });
+  </script>
+  
+</head>
+<body>
+  
+    <div class="container">
+      <div class="row">
+        <div class="one half">
+          <h1 class="big responsive heading" data-compression="9" data-min="20" data-max="120" style="font-size: 66px;"><a href="./home"><span class="logo"></span> GroundworkCSS <sup>Beta</sup></a></h1>
+        </div>
+        <div class="one half double pad-top">
+          <nav class="inline pull-right">
+              <ul>
+                  <li><a href="./home">Home</a></li>
+                  <li class="menu"><a href="./components">Services</a>
+                    <ul style="display: none;">
+                      <li><a href="./grid">Grid</a></li>
+                      <li><a href="./media-queries">Media Queries</a></li>
+                      <li><a href="./typography">Typography</a></li>
+                      <li><a href="./buttons">Buttons</a></li>                                            
+                    </ul>
+                  </li>
+                  <li class="menu"><a href="#">Account</a>
+                    <ul style="display: none;">
+                      <% if logged_in == false then %>
+                      <li><a href="<%= login_url %>"><i class="icon-home" ></i>Login</a></li>            
+                      <li><a title="a" id="register-menu"><i class="icon-home" ></i>Register</a></li>            
+            <li><a title="a" id="pw-menu"><i class="icon-envelope-alt" ></i>Forgot password? </a></li>            
+                      <% else %>
+                        <li><a href="<%= logout_url %>"><i class="icon-home" ></i>Logout</a></li>            
+                      <% end %>
+            <li><a title="a" id="help-menu"><i class="icon-heart" ></i>Help</a></li>                     
+                    </ul>
+                  </li>
+              </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+  
+  
+  <div class="container">    
+    <div class="row">
+      <div class="two thirds">
+          <div class="padded">
+      <div class="slider">
+        <img src="http://placehold.it/1200x400/24cada/ffffff&amp;text=Slide+1" alt=""/>
+        <img src="http://placehold.it/1200x400/bada55/ffffff&amp;text=Slide+2" alt=""/>
+        <img src="http://placehold.it/1200x400/c82647/ffffff&amp;text=Slide+3" alt=""/>
+        <img src="http://placehold.it/1200x400/198d98/ffffff&amp;text=Slide+4" alt=""/>
+      </div>
+      <article class="row">
+      <section class="one third padded">
+        <h3>Section Heading 3</h3>
+        <img src="http://placehold.it/380x200/198d98/ffffff/" class="gap-top gap-bottom" alt="" />
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sodales urna non odio egestas tempor. Nunc vel vehicula ante. Etiam bibendum iaculis libero, eget molestie nisl pharetra in. In semper consequat est, eu porta velit mollis nec. Curabitur posuere enim eget turpis feugiat tempor. Etiam ullamcorper lorem dapibus velit suscipit ultrices.</p>
+      </section>
+      <section class="one third padded">
+        <h3>Section Heading 3</h3>
+        <img src="http://placehold.it/380x200/198d98/ffffff/" class="gap-top gap-bottom" alt="" />
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sodales urna non odio egestas tempor. Nunc vel vehicula ante. Etiam bibendum iaculis libero, eget molestie nisl pharetra in. In semper consequat est, eu porta velit mollis nec. Curabitur posuere enim eget turpis feugiat tempor. Etiam ullamcorper lorem dapibus velit suscipit ultrices.</p>
+      </section>
+      <section class="one third padded">
+        <h3>Section Heading 3</h3>
+        <img src="http://placehold.it/380x200/198d98/ffffff/" class="gap-top gap-bottom" alt="" />
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sodales urna non odio egestas tempor. Nunc vel vehicula ante. Etiam bibendum iaculis libero, eget molestie nisl pharetra in. In semper consequat est, eu porta velit mollis nec. Curabitur posuere enim eget turpis feugiat tempor. Etiam ullamcorper lorem dapibus velit suscipit ultrices.</p>
+      </section>
+    </article>
+    </div>
+      </div>
+               
+      
+        
+         
+        
+      
+      <div class="one third" id="accTpl"></div>      
+    </div>
+     
+    <br /> <br />
+    <footer class="footer align-left">
+        <p>&copy; 2013 Gary Hepting. Free to use, but <a href="mailto:groundwork@sidereel.com">give me a shout</a> if you find GroundworkCSS extremely useful!</p>
+    </footer>
+    
+  </div>
+  <!-- scripts -->
+  <script type="text/javascript" src="/js/plugins/jquery.orbit-1.4.0.js"></script>
+  <script type="text/javascript" src="/js/groundwork.js"></script>
+  <script type="text/javascript" src="/js/mustache.js"></script>
+
+  <!-- google analytics -->
+  <script type="text/javascript">
+
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-XXXXXXXX-X']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+
+  </script>  
+ 
+</script>
+<script type="text/javascript">
+  $(document).ready(function(){
+      var template = $('#signupTpl').html();
+      var html = Mustache.to_html(template);
+      $('#accTpl').html(html);      
+  }) 
+  $("#register-menu").click(function() {      
+      var template = $('#signupTpl').html();
+      var html = Mustache.to_html(template);      
+      $('#accTpl').html(html);
+  });
+   $("#pw-menu").click(function() {
+      var template2 = $('#pwTpl').html();
+      var html2 = Mustache.to_html(template2);      
+      $('#accTpl').html(html2);
+  });
+   $("#help-menu").click(function() {
+      var template2 = $('#helpTpl').html();
+      var html2 = Mustache.to_html(template2);      
+      $('#accTpl').html(html2);
+  });
+</script>
+ <script>
+$(function() {
+$("#datepicker").datepicker();
+});
+</script>
+<script id="helpTpl" type="text/template"> 
+  Help 
+</script>
+<script id="pwTpl" type="text/template"> 
+         <% flash_types.select{ |kind| flash.has?(kind) }.each do |kind| %>
+      <div class="flash <%= kind %>">
+        <%= flash[kind] %>
+      </div>
+      <% end %> 
+        <form action="/reset" method="post" >
+        <%= Rack::Csrf.csrf_tag(env) %>
+          <fieldset>
+            <legend>Reset password</legend> 
+
+             <div class="row">
+              <div class="one whole padded">
+                <label for="email">Email Address</label>
+                <input type="email" name="user[email]" placeholder="Your Email" id="email" />
+              </div>
+            </div>
+            <div class="row">
+              <div class="one whole padded">
+                <button type="submit">Submit</button> 
+              </div>
+            </div>                       
+          </fieldset>
+         
+        </form>
+</script>
+
+      <script id="signupTpl" type="text/template">    
+         <% flash_types.select{ |kind| flash.has?(kind) }.each do |kind| %>
+<div class="flash <%= kind %>">
+  <%= flash[kind] %>
+</div>
+<% end %> 
+        <form action="/signup" method="post" >
+        <%= Rack::Csrf.csrf_tag(env) %>
+          <fieldset>
+            <legend>Register</legend> 
+
+             <div class="row" id="msv">
+              <div class="one whole padded">
+                <label for="msv">MSV</label>
+                <input type="text" name="user[msv]" placeholder="Your MSV" id="msv" />
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="one whole padded">
+                <label for="email">Email Address</label>
+                <input type="email" name="user[email]" placeholder="Your Email" id="email" />
+              </div>
+            </div>
+            <div class="row">
+              <div class="one whole padded">
+                <label for="password">Password</label>
+                <input type="password" name="user[password]" placeholder="Your password" id="password" />
+              </div>
+            </div>
+            <div class="row">
+              <div class="one whole padded">
+                <label for="password2">Password</label>
+                <input type="password" name="user[password2]" placeholder="Confirm your password" id="password2" />
+              </div>
+            </div>
+            <div class="row">
+              <div class="one whole padded">
+                <label for="fullname">Full Name</label>
+                <input type="text" name="user[hovaten]" placeholder="Your full name" id="fullname" />
+              </div>
+            </div>
+            <div class="row">
+             <div class="one whole padded">
+                <select class="unselected">
+                  <option selected="" disabled="" value="" name="user[gioitinh]">Gioi tinh</option>
+                  <option value="1">Nam</option>
+                  <option value="0">Nu</option>
+                </select>
+             </div>
+            </div>
+            <div class="row">
+              <div class="one whole padded">
+                  <label for="datepicker">Birth Date</label>
+                  <input type="text" id="datepicker" placeholder="dd/mm/yyyy" name="user[ngaysinh]" /></p>
+                </div>
+              </div>            
+            <div class="row">
+              <div class="one whole padded">
+                <label for="address">Address</label>
+                <input type="text" name="user[diachi]" placeholder="Street Address" id="address">
+              </div>
+            </div>                        
+           
+           <div class="row">
+              <div class="one whole padded">
+                <label for="phone">Phone</label>
+                <input type="text" name="user[sodienthoai]" placeholder="So dien thoai" id="phone">
+              </div>
+            </div> 
+          
+            <div class="row">
+              <div class="one whole padded">
+                <button type="submit">Submit</button> 
+              </div>
+            </div>                       
+          </fieldset>
+         
+        </form>
+        </script>
+</body>
+</html>

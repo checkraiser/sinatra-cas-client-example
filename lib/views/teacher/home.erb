@@ -1,0 +1,39 @@
+
+  <div class="row">Teacher
+
+      <form id="tab">    
+        <label>Họ và tên</label>
+        <input type="text" value="<%= current_profile[:hovaten] %>" class="input-xlarge" name="user[name]" />        
+    
+    <label for="sex">Giới tính</label>
+    <select id="sex" name="user[sex]" value="<%= current_profile[:gioitinh] %>">
+     <option value="" selected>Vui lòng chọn</option>
+
+     <option value="1">Nam</option>
+     <option value="0">Nữ</option>     
+    </select>
+    
+    <label for="datetimepicker4">Ngày sinh</label>
+         <div id="datetimepicker4" class="input-append">
+        <input data-format="dd/MM/yyyy" type="text" value="<%= current_profile[:ngaysinh] %>" name="user[ngaysinh]"></input>
+        <span class="add-on">
+          <i data-time-icon="icon-time" data-date-icon="icon-calendar">
+          </i>
+        </span>
+        </div>
+
+        <label for="address">Địa chỉ</label>
+        <textarea id="address" name="user[diachi]" value="<%= current_profile[:diachi] %>" rows="3" class="input-xlarge">
+        </textarea>
+        
+        <label for="address">Noi cong tac</label>
+        <textarea id="address" name="user[noicongtac]" value="<%= current_profile[:noicongtac] %>" rows="3" class="input-xlarge">
+        </textarea>
+    <label for="phone">Số điện thoại</label>
+    <input id="phone" type="text" name="user[dienthoai]" value="<%= current_profile[:dienthoai] %>" class="input-xlarge" name="user[phone]" />
+         <div>
+        <input type="submit" class="btn btn-primary" value="Update" />
+        </div>
+      </form>
+    
+  </div>
