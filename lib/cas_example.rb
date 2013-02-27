@@ -24,8 +24,7 @@ class CasExample < Sinatra::Base
     process_cas_login(request, session)    
   end
 
-  get "/" do    
-    puts "logged in: " + session[:logged_in]
+  get "/" do        
     erb :index unless logged_in      
     erb :home 
   end
