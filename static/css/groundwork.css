@@ -1303,11 +1303,11 @@ h1.heading sup {
 }
 h1.heading .logo {
   display: inline-block;
-  width: 1em;
+  width: 60%;
   height: 1em;
   position: relative;
   top: 0.1em;
-  background: transparent url("../images/groundwork-logo.svg") bottom right no-repeat;
+  background: transparent url("../images/logo.png") bottom right no-repeat;
   background-size: 100% 100%;
   text-indent: -9999em;
   overflow: hidden;

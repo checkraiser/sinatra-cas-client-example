@@ -3,7 +3,7 @@ require 'rubycas-client'
 
 module CasHelpers
 
-  CAS_CLIENT = CASClient::Client.new(:cas_base_url => 'http://acc.hpu.edu.vn', :log => Logger.new(STDOUT), :ticket_store_config => {:storage_dir => ENV['TICKET_STORE_DIR']})
+  CAS_CLIENT = CASClient::Client.new(:cas_base_url => 'http://10.1.0.195:3001', :log => Logger.new(STDOUT), :ticket_store_config => {:storage_dir => ENV['TICKET_STORE_DIR']})
 
   def need_authentication(request, session)
     if session[:cas_ticket]

@@ -23,8 +23,8 @@ class UserService
 			return ''
 		end
 	end
-	def checksv(email, msv)
-		mail = getemail(msv)
+	def checksv(email, msv)		
+		mail = getemail(msv)		
 		return email == mail
 	end
 	def checkgv(email)
@@ -33,7 +33,15 @@ class UserService
 	def get_user(email)
 		return User.first(:email => email)
 	end	
-	
+	def get_profile(email)
+		user = get_user(email)
+		return Profile.first(:user_id => user.id)
+	end
+	def get_services(email)
+		user = get_user(email)
+		return user.role.services if user
+		return nil if user == nil
+	end
 	def confirm_register(token) #tested
 		# xac nhan dang ky va kich hoat thanh cong
 		# tham so la token
@@ -66,20 +74,36 @@ class UserService
 		begin
 			email = email.strip unless email.blank?
 			user = get_user(email)
-			return {:code => -1, :msg => 'Nil user'} if user == nil 
-			return {:code => 2, :msg => 'Activated'} if user.status == 1
+			return {:code => -1, :msg => 'Khong ton tai email'} if user == nil 
+			return {:code => 2, :msg => 'Da kich hoat'} if user.status == 1
 			register_confirm = Activation.new(:token => SecureRandom.hex, :created_at => Time.now, :description => 'Register reconfirmation', :status => 0)			 
 			register_confirm.user = user
 			if user.save and register_confirm.save then 
 				sm = SendEmail.new({:to => email, :token => register_confirm.token, :reason => 'register'})
 				sm.async.perform
-				return {:code => 1, :msg => 'OK'}
+				return {:code => 1, :msg => 'Da goi ma xac nhan thanh cong'}
 			end
 		rescue
 			return {:code => -2, :msg => 'Unknown error'}
 		end
 	end	
-
+	def changepassword(email, old, p, p2)
+		begin
+			email = email.strip unless email.blank?
+			return {:code => -1, :msg => 'Mat khau qua ngan'} if (p.length < 6 or p2.length < 6)
+			return {:code => -1, :msg => 'Mat khau moi khong trung'} if (p != p2)
+			xold = hash_pass(old)
+			xp = hash_pass(p)
+			user = get_user(email)
+			return {:code => -1, :msg => 'Mat khau cu khong dung'} if (user[:password] != xold)
+			user.password = xp
+			if user.save 
+				return {:code => 1, :msg => 'Mat khau cap nhat thanh cong'}
+			end
+		rescue
+			return {:code => -2, :msg => 'Unknown error'}
+		end
+	end
 	def resetpassword(email)
 		begin
 			email = email.strip unless email.blank?
@@ -101,9 +125,9 @@ class UserService
 	def changeprofile(email, xprofile)
 		begin			
 			user = get_user(email)
-			return {:code => -1, :msg => 'Nil User'} if user == nil
+			return {:code => -1, :msg => 'Khong ton tai nguoi dung'} if user == nil
 			profile = Profile.first(:user_id => user.id)
-			return {:code => -1, :msg => 'Nil Profile'} if profile == nil			
+			return {:code => -1, :msg => 'Khong ton tai ho so'} if profile == nil			
 			profile.attributes = {:hovaten => (xprofile[:hovaten] if xprofile.has_key?(:hovaten)),
 				:gioitinh => (xprofile[:gioitinh] if xprofile.has_key?(:gioitinh)),
 				:ngaysinh => (xprofile[:ngaysinh] if xprofile.has_key?(:ngaysinh)),
@@ -115,7 +139,7 @@ class UserService
 				return {:code => 1, :msg => 'Save Profile OK'}
 			end
 		rescue
-			return {:code => -2, :msg => 'Unknown error'}
+			return {:code => -1, :msg => 'Unknown error'}
 		end
 	end
 	def register(email, password, role, xprofile)
@@ -130,7 +154,7 @@ class UserService
 			role_guest = Role.first_or_create(:name => role)
 
 
-			user = User.new(:email => email, :password => password, :status => 0,  :created_at => Time.now)
+			user = User.new(:email => email, :password => hash_pass(password), :status => 0,  :created_at => Time.now)
 			user.role = role_guest
 		  	profile = Profile.first_or_create(:email => user[:email])
 		  	profile.user = user
@@ -141,12 +165,13 @@ class UserService
 				:diachi => (xprofile[:diachi] if xprofile.has_key?(:diachi)),
 				:noicongtac => (xprofile[:noicongtac] if xprofile.has_key?(:noicongtac)),
 				:email => (xprofile[:email] if xprofile.has_key?(:email)),
-				:dienthoai => (xprofile[:dienthoai] if xprofile.has_key?(:dienthoai))}
+				:dienthoai => (xprofile[:dienthoai] if xprofile.has_key?(:dienthoai)),
+			}
 		  	end
 		  
 			register_confirm = Activation.new(:token => SecureRandom.hex, :created_at => Time.now, :description => 'Register confirmation', :status => 0)			 
 			register_confirm.user = user
-		  
+		  	user.masinhvien = xprofile[:masinhvien] if xprofile.has_key?(:masinhvien)
 		  
 		    if user.save and register_confirm.save and profile.save and register_confirm.save		
 			  	#Resque.enqueue(SendEmail, email, register_confirm.token, 'register')
@@ -160,8 +185,8 @@ class UserService
 	  	  return {:code => -1, :msg => 'Unknown Error'}
 	    end
 	end	
-	def register_guest(email, password, xprofile)		
-		gvtest = checkgv(email)
+	def register_guest(email, password, xprofile)				
+		gvtest = checkgv(email)		
 		if gvtest			
 			return register(email, password, 'Teacher', xprofile)
 		else
@@ -169,8 +194,13 @@ class UserService
 		end
 	end
 	def register_student(sis, email, password, xprofile)
+
 		svtest = checksv(email, sis)
 		if svtest
+			if email.include?("hpu.vn")
+			return {:code => -1, 
+				:msg => "Email #{email} khong the su dung, http://hpu.edu.vn/sinhvien de doi email"} 
+			end
 			#password = hash_pass(Digest::MD5.hexdigest(generate_password))
 			return register(email, password, 'Student', xprofile)
 		else
