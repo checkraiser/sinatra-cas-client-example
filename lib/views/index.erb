@@ -13,6 +13,7 @@
   <!-- jQuery -->
   <script type="text/javascript" src="/js/libs/jquery-1.8.2.min.js"></script>
   <script type="text/javascript" src="/js/jquery-ui.js"></script>
+  <script type="text/javascript" src="/js/parsley.js"></script>
   <!-- GroundworkCSS -->
 
   <link type="text/css" rel="stylesheet" href="/css/groundwork.css">
@@ -52,29 +53,20 @@
         </div>
         <div class="one half double pad-top">
           <nav class="inline pull-right">
-              <ul>
-                  <li><a href="/">Home</a></li>
-                  <li class="menu"><a href="./components">Services</a>
-                    <ul style="display: none;">
-                      <li><a href="./grid">Grid</a></li>
-                      <li><a href="./media-queries">Media Queries</a></li>
-                      <li><a href="./typography">Typography</a></li>
-                      <li><a href="./buttons">Buttons</a></li>                                            
-                    </ul>
-                  </li>
-                  <li class="menu"><a href="#">Account</a>
+              <ul>                  
+                  <li class="menu small-tablet"><a href="#">Tài khoản</a>
                     <ul style="display: none;">
                       <% if !logged_in?(request, session) then %>
-                      <li><a href="<%= login_url %>"><i class="icon-home" ></i>Login</a></li>            
-                      <li><a title="a" id="register-menu"><i class="icon-home" ></i>Register</a></li>            
-            <li><a title="a" id="pw-menu"><i class="icon-envelope-alt" ></i>Forgot password? </a></li>            
+                      <li><a href="<%= login_url %>">Đăng nhập</a></li>            
+                      <li><a title="a" id="register-menu"></i>Đăng ký</a></li>            
+            <li><a title="a" id="pw-menu">Quên mật khẩu?</a></li>            
                       <% else %>
-                        <li><a href="/logout"><i class="icon-home" ></i>Logout</a></li>            
-                      <% end %>
-            <li><a title="a" id="help-menu"><i class="icon-heart" ></i>Help</a></li>                     
+                        <li><a href="/logout">Đăng xuất</a></li>            
+                      <% end %>                            
                     </ul>
                   </li>
-              </ul>
+                  <li><a title="a" class="menu small-tablet" id="help-menu">Hướng dẫn</a></li>    
+              </ul>              
           </nav>
         </div>
       </div>
@@ -85,49 +77,45 @@
     <div class="row">
       <div class="two thirds">
           <div class="padded">      
-      <article class="row">
-      <section class="one third padded">       
-        <a href="http://hpu.edu.vn"><img src="/images/congthongtin.jpg" class="gap-top gap-bottom" alt="" /></a>
-      </section>      
-      <section class="one third padded">       
-        <a href="http://hpu.edu.vn"><img src="/images/tracuuthongtin.jpg" class="gap-top gap-bottom" alt="" /></a>      
-      </section>
-      <section class="one third padded">       
-        <img src="/images/diendansinhvien.jpg" class="gap-top gap-bottom" alt="" />       
-      </section>
-      <section class="one third padded">       
-        <img src="/images/dangkymonhoc.jpg" class="gap-top gap-bottom" alt="" />       
-      </section>
-      <section class="one third padded">       
-        <img src="/images/decuongmonhoc.jpg" class="gap-top gap-bottom" alt="" />       
-      </section>
-      <section class="one third padded">       
-        <img src="/images/thuvienanh.jpg" class="gap-top gap-bottom" alt="" />       
-      </section>
-      <section class="one third padded">       
-        <img src="/images/hotrotructuyen.jpg" class="gap-top gap-bottom" alt="" />       
-      </section>
-      <section class="one third padded">       
-        <img src="/images/khoaluandoan.jpg" class="gap-top gap-bottom" alt="" />       
-      </section>
-      <section class="one third padded">       
-        <img src="/images/wiki.jpg" class="gap-top gap-bottom" alt="" />       
-      </section>
-    </article>
-    </div>
-      </div>
-               
-      
-        
-         
-        
-      
-      <div class="one third" id="accTpl"></div>      
+                <article class="row">
+                <section class="one third padded">       
+                  <a href="http://hpu.edu.vn"><img src="/images/congthongtin.jpg"  alt="" /></a>
+                </section>      
+                <section class="one third padded">       
+                  <a href="http://libol.hpu.edu.vn"><img src="/images/tracuuthongtin.jpg"  alt="" /></a>    </section>
+                <section class="one third padded">       
+                  <a href="http://diendan.hpu.edu.vn"><img src="/images/diendansinhvien.jpg"  alt="" /></a>
+                </section>
+                <section class="one third padded">       
+                  <a href="http://dk.hpu.edu.vn"><img src="/images/dangkymonhoc.jpg"  alt="" /></a>
+                </section>
+                <section class="one third padded">       
+                  <a href="http://tailieu.hpu.edu.vn"><img src="/images/decuongmonhoc.jpg"  alt="" /></a>
+                </section>
+                <section class="one third padded">       
+                  <a href="http://img.hpu.edu.vn"><img src="/images/thuvienanh.jpg"  alt="" /></a>
+                </section>
+                <section class="one third padded">       
+                  <a href="http://vp.hpu.edu.vn"><img src="/images/hotrotructuyen.jpg"  alt="" /></a>
+                </section>
+                <section class="one third padded">       
+                  <a href="http://lib.hpu.edu.vn"><img src="/images/khoaluandoan.jpg"  alt="" /></a>
+                </section>
+                <section class="one third padded">       
+                  <a href="http://wiki.hpu.edu.vn"><img src="/images/wiki.jpg"  alt="" /></a>
+                </section>
+              </article>              
+          </div>
+      </div>   
+      <div class="one third" >
+          <div class="padded" id="accTpl">
+          </div>
+      </div>         
     </div>
      
     <br /> <br />
-    <footer class="footer align-left">
-        <p>&copy; 2013 Gary Hepting. Free to use, but <a href="mailto:groundwork@sidereel.com">give me a shout</a> if you find GroundworkCSS extremely useful!</p>
+    <footer class="footer align-center">
+        <p>&copy; 2013 Trường Đại học Dân lập Hải Phòng - Haiphong Private University</p>       
     </footer>
     
   </div>
@@ -167,9 +155,11 @@ $("#datepicker").datepicker();
 });
 </script>
 <script id="helpTpl" type="text/template"> 
-  Nếu bạn là sinh viên, vui lòng vào <a href="http://hpu.edu.vn/sinhvien">cổng sinh viên</a> để cập nhật email.
-Lưu ý email phải dùng được để kích hoạt tài khoản của bạn tại đây, khuyến khích dùng Gmail.
-Sau khi cập nhật email, bạn nhập lại chính xác thông tin mã sinh viên và email trong cổng sinh viên để đăng ký
+  <h2>Hướng dẫn đăng ký hệ thống:</h2>
+<p>- Nếu bạn là sinh viên, vui lòng đến <a href="http://hpu.edu.vn/sinhvien">cổng thông tin sinh viên</a> để thay đổi email, email bắt buộc phải có hiệu lực sử dụng để đăng ký. <strong>Địa chỉ email này rất quan trọng vì không thể thay đổi khi đã đăng ký.</strong> <span>Khuyến khích sử dụng gmail, các bạn có thể đăng ký tài khoản Gmail tại <a href="http://http://gmail.com/">đây</a></span></p><br />
+<p>- Nếu bạn là cán bộ, giảng viên, bạn phải đăng ký với tài khoản email của trường.</p>
+<p>- Nếu bạn là khách, vui lòng sử dụng email có hiệu lực sử dụng để đăng ký.</p>
+<p><strong>Mọi vấn đề đăng ký và sử dụng tài khoản vui lòng liên hệ qua email: dungth@hpu.edu.vn</strong></p>
 </script>
 <script id="pwTpl" type="text/template"> 
          <% flash_types.select{ |kind| flash.has?(kind) }.each do |kind| %>
@@ -177,19 +167,19 @@ Sau khi cập nhật email, bạn nhập lại chính xác thông tin mã sinh v
         <%= flash[kind] %>
       </div>
       <% end %> 
-        <form action="/reset" method="post" >        
+        <form action="/reset" method="post" data-validate="parsley" >        
           <fieldset>
             <legend>Reset password</legend> 
 
              <div class="row">
               <div class="one whole padded">
-                <label for="email">Email Address</label>
-                <input type="email" name="user[email]" placeholder="Your Email" id="email" />
+                <label for="email">Địa chỉ Email</label>
+                <input type="email" name="user[email]" placeholder="Địa chỉ Email" id="email" data-type="email" data-trigger="change" data-validation-minlength="3" data-required="true" data-type-email-message="Phải là email" data-minlength-message="Độ dài email quá ngắn" data-required-message="Trường email là bắt buộc" />
               </div>
             </div>
             <div class="row">
               <div class="one whole padded">
-                <button type="submit">Submit</button> 
+                <button type="submit">Xác nhận</button> 
               </div>
             </div>                       
           </fieldset>
@@ -203,40 +193,38 @@ Sau khi cập nhật email, bạn nhập lại chính xác thông tin mã sinh v
   <%= flash[kind] %>
 </div>
 <% end %> 
-        <form action="/signup" method="post" >
+        <form action="/signup" method="post" data-validate="parsley" >
         
           <fieldset>
-            <legend>Register</legend> 
-
              <div class="row" id="msv">
               <div class="one whole padded">
                 <label for="msv">Mã sinh viên (Nếu bạn là sinh viên)</label>
-                <input type="text" name="user[msv]" placeholder="Your MSV" id="msv" />
+                <input type="text" name="user[msv]" placeholder="Mã sinh viên" id="msv" />
               </div>
             </div>
 
             <div class="row">
               <div class="one whole padded">
-                <label for="email">Email Address</label>
-                <input type="email" name="user[email]" placeholder="Your Email" id="email" />
+                <label for="email">Địa chỉ Email: (<strong>Bắt buộc</strong>)</label>
+                <input type="email" name="user[email]" placeholder="Email" id="email" data-type="email" data-trigger="change" data-validation-minlength="3" data-required="true" data-type-email-message="Phải là email" data-minlength-message="Độ dài email quá ngắn" data-required-message="Trường email là bắt buộc" />
               </div>
             </div>
             <div class="row">
               <div class="one whole padded">
                 <label for="password">Password</label>
-                <input type="password" name="user[password]" placeholder="Your password" id="password" />
+                <input type="password" name="user[password]" placeholder="Mật khẩu" id="password" data-minlength="6" data-trigger="change" data-minlength-message="Mật khẩu quá ngắn, phải có ít nhất 6 ký tự"  />
               </div>
             </div>
             <div class="row">
               <div class="one whole padded">
                 <label for="password2">Password</label>
-                <input type="password" name="user[password2]" placeholder="Confirm your password" id="password2" />
+                <input type="password" name="user[password2]" placeholder="Xác nhận mật khẩu" id="password2" data-trigger="change" data-minlength="6" data-minlength-message="Mật khẩu quá ngắn, phải có ít nhất 6 ký tự" data-equalto="#password" data-equalto-message="Mật khẩu xác nhận không trùng mật khẩu ban đầu" />
               </div>
             </div>            
           
             <div class="row">
               <div class="one whole padded">
-                <button type="submit">Submit</button> 
+                <button type="submit">Đăng ký</button> 
               </div>
             </div>                       
           </fieldset>

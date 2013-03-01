@@ -26,8 +26,10 @@ module CasHelpers
       CAS_CLIENT.validate_service_ticket(st)
 
       if st.success
+        puts "ST: " + st.inspect
         session[:cas_ticket] = st.ticket
-        session[:cas_user] = st.user        
+        session[:cas_user] = st.user     
+        #session[:cas_extra_attributes] = st.extra_attributes
       else
         raise "Service Ticket validation failed! #{st.failure_code} - #{st.failure_message}"
       end

@@ -1,6 +1,6 @@
 require 'csv'
-require_relative '../models_test'
-
+#require_relative '../models_test'
+require_relative '../models'
 require 'data_mapper'
 
 

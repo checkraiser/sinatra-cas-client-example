@@ -1,9 +1,10 @@
+# encoding: UTF-8
 require 'sinatra/base'
 require 'cas_helpers'
 require 'rack-flash'
 #require 'rack/csrf'
-require_relative './userservice_test'
-
+#require_relative './userservice_test'
+require_relative './userservice'
 class CasExample < Sinatra::Base
   #use Rack::Session::Cookie, :secret => 'changeme' #using session cookies in production with CAS is NOT recommended
   enable :sessions
@@ -24,7 +25,9 @@ class CasExample < Sinatra::Base
   before do    
     process_cas_login(request, session)    
   end
-
+  error 400..510 do
+    'Boom'
+  end
   get "/" do   
     puts "ticket: #{session[:cas_ticket]}"  
     if !logged_in?(request, session) then       
@@ -66,7 +69,7 @@ class CasExample < Sinatra::Base
     begin
           xngaysinh = Date.strptime(ngaysinh.strip, '%d/%m/%Y')
     rescue
-        flash[:error] = "Vui long nhap ngay thang theo dinh dang NGAY/THANG/NAM (18/07/1987)"
+        flash[:error] = "Vui lòng nhập ngày tháng theo định dạng ngày/tháng/năm (ví dụ: 18/05/1990)"
         redirect "/"
     end
     xprofile = {
@@ -118,7 +121,7 @@ class CasExample < Sinatra::Base
     end      
     redirect '/'
   end
-  get "/activate/:token" do |token|
+  get "/activate/:token" do |token|    
     v = @@us.confirm_register(token)
     case v[:code]
     when -2
@@ -151,7 +154,7 @@ class CasExample < Sinatra::Base
     if password == password2 then            
 
       if password.length < 6 then
-        flash[:warning] = 'Mat khau qua ngan (it nhat 8 ky tu)'
+        flash[:warning] = 'Mật khẩu quá ngắn, phải có ít nhất 6 ký tự'
         redirect '/'
       end 
       
@@ -162,20 +165,21 @@ class CasExample < Sinatra::Base
 
       if msv && !msv.empty?  then 
         xprofile[:masinhvien] = msv
+        #xprofile = xprofile.merge!(xxprofile) if xxprofile          
         v = @@us.register_student(msv, email, password, xprofile)
       else
         v = @@us.register_guest(email, password, xprofile)
       end
 
       if v[:code] == 1 then 
-        flash[:success] = "Message saved successfully."
+        flash[:success] = v[:msg]
         redirect "/"
       else 
-        flash[:error] = "Khong ton tai ma sinh vien va email"
+        flash[:error] = v[:msg]
         redirect "/"
       end
     else
-      flash[:error] = "Password khong trung"
+      flash[:error] = "Mật khẩu xác nhận không trùng"
       redirect "/"
     end
   end

@@ -2,7 +2,7 @@ require 'data_mapper'
 
 
 
-DataMapper.setup(:default, 'postgres://casuser:123456@10.1.0.195:5433/casauth2')
+DataMapper.setup(:default, 'postgres://casuser:123456@10.1.0.195:5433/casauth')
 
 
 
@@ -24,9 +24,9 @@ class User
    # validates_presence_of         :password
    # validates_confirmation_of     :password
    # validates_length_of           :password, :min => 6
-
+   	property :masinhvien, String
     belongs_to :role	    
-    has n, :activations
+    has n, :activations    
 end
 class Activation
 	include DataMapper::Resource
@@ -47,7 +47,7 @@ class Profile
 	property :diachi, Text
 	property :noicongtac, Text	
 	property :email, String
-	property :dienthoai, String	
+	property :dienthoai, String		
 	belongs_to :user, :required => false
 end
 class Student
@@ -104,3 +104,4 @@ DataMapper.finalize
 DataMapper::Model.raise_on_save_failure = true 
 
 DataMapper.auto_upgrade!
+#DataMapper.auto_migrate!
