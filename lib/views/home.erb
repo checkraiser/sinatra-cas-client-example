@@ -48,31 +48,20 @@
     <div class="container">
       <div class="row">
         <div class="one half">
-          <h1 class="big responsive heading" data-compression="9" data-min="20" data-max="120" style="font-size: 66px;"><a href="./home"><span class="logo"></span> GroundworkCSS <sup>Beta</sup></a></h1>
+          <h1 class="big responsive heading" data-compression="9" data-min="20" data-max="120" style="font-size: 66px;"><a href="./home"><span class="logo"></span></a></h1>
         </div>
         <div class="one half double pad-top">
           <nav class="inline pull-right">
-              <ul>
-                  <li><a href="/">Home</a></li>
-                  <li class="menu"><a href="#">Services</a>
-                    <ul style="display: none;">
-                      <% if current_services then %>
-                        <% current_services.each do |sv| %>
-                      <li><a href="<%= sv.url %>"><%= sv.name %></a></li>                     
-                        <% end %>                 
-                      <% end %>    
-                    </ul>
-                  </li>
-                  <li class="menu"><a href="#">Account</a>
+              <ul>                                    
+                  <li class="menu"><a href="#">Tài khoản</a>
                     <ul style="display: none;">
                     <% if !logged_in?(request, session) then %>
-                      <li><a href="<%= login_url %>"><i class="icon-home" ></i>Login</a></li>            
-                      <li><a title="a" id="register-menu"><i class="icon-home" ></i>Register</a></li>            
-            <li><a title="a" id="pw-menu"><i class="icon-envelope-alt" ></i>Forgot password? </a></li>            
+                      <li><a href="<%= login_url %>"><i class="icon-home" ></i>Đăng nhập</a></li>            
+                      <li><a title="a" id="register-menu"><i class="icon-home" ></i>Đăng ký</a></li>            
+            <li><a title="a" id="pw-menu"><i class="icon-envelope-alt" ></i>Quên mật khẩu ? </a></li>            
                       <% else %>
-                        <li><a href="/logout"><i class="icon-home" ></i>Logout</a></li>            
-                      <% end %>
-            <li><a title="a" id="help-menu"><i class="icon-heart" ></i>Help</a></li>                     
+                        <li><a href="/logout"><i class="icon-home" ></i>Đăng xuất</a></li>            
+                      <% end %>                              
                     </ul>
                   </li>
               </ul>
@@ -86,10 +75,54 @@
       <div class="row">
         <div class="tabs two thirds padded">
           <ul>
-            <li><a href="#profile" class="active">Profile</a></li>
-            <li><a class="" href="#password">Password</a></li>            
+            <li><a href="#services" class="active">Dịch vụ</a></li>
+            <li><a href="#profile">Hồ sơ</a></li>
+            <li><a class="" href="#password">Mật khẩu</a></li>            
           </ul>
-          <div id="profile" class="active">
+          <div id="services" class="active">
+            <div class="container">    
+    <div class="row">
+      <div class="two thirds">
+          <div class="padded">      
+                <article class="row">
+                <section class="one third padded">       
+                  <a href="http://hpu.edu.vn"><img src="/images/congthongtin.jpg"  alt="" /></a>
+                </section>      
+                <section class="one third padded">       
+                  <a href="http://libol.hpu.edu.vn"><img src="/images/tracuuthongtin.jpg"  alt="" /></a>    </section>
+                <section class="one third padded">       
+                  <a href="http://diendan.hpu.edu.vn"><img src="/images/diendansinhvien.jpg"  alt="" /></a>
+                </section>
+                <section class="one third padded">       
+                  <a href="http://dk.hpu.edu.vn"><img src="/images/dangkymonhoc.jpg"  alt="" /></a>
+                </section>
+                <section class="one third padded">       
+                  <a href="http://tailieu.hpu.edu.vn"><img src="/images/decuongmonhoc.jpg"  alt="" /></a>
+                </section>
+                <section class="one third padded">       
+                  <a href="http://img.hpu.edu.vn"><img src="/images/thuvienanh.jpg"  alt="" /></a>
+                </section>
+                <section class="one third padded">       
+                  <a href="http://vp.hpu.edu.vn"><img src="/images/hotrotructuyen.jpg"  alt="" /></a>
+                </section>
+                <section class="one third padded">       
+                  <a href="http://lib.hpu.edu.vn"><img src="/images/khoaluandoan.jpg"  alt="" /></a>
+                </section>
+                <section class="one third padded">       
+                  <a href="http://wiki.hpu.edu.vn"><img src="/images/wiki.jpg"  alt="" /></a>
+                </section>
+              </article>              
+          </div>
+      </div>   
+      <div class="one third" >
+          <div class="padded">
+
+          </div>
+      </div>         
+    </div>
+          </div>
+          </div>
+          <div id="profile">
             <h1>Profile</h1>
             <% flash_types.select{ |kind| flash.has?(kind) }.each do |kind| %>
             <div class="flash <%= kind %>">

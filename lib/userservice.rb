@@ -1,6 +1,7 @@
 # encoding: UTF-8
 require 'savon'
 require 'celluloid'
+require 'email_veracity'
 require_relative './workers/mailservice'
 #require_relative './models_test'
 require_relative './models'
@@ -8,6 +9,10 @@ class UserService
 	include Celluloid
 	def initialize
 		@client = Savon.client(wsdl: "http://10.1.0.238:8082/HPUWebService.asmx?wsdl")		
+	end
+	def checkrealmail(email)
+		address = EmailVeracity::Address.new(email)
+		return address.valid?
 	end
 	def getemail(msv)	
 		return {:code => -3, :email => nil} if msv.blank?	
@@ -99,20 +104,28 @@ class UserService
 			return {:code => -1, :msg => 'Internal Server Error'}
 		end
 	end
-	def checkgv(email)
-		return Teacher.first(:email => email) != nil
+	def checkgv(email)		
+		return Teacher.first(:email => email) != nil rescue false 
 	end
 	def get_user(email)
-		return User.first(:email => email)
+		return User.first(:email => email) rescue nil 
 	end	
 	def get_profile(email)
-		user = get_user(email)
-		return Profile.first(:user_id => user.id)
+		begin
+			user = get_user(email)
+			return Profile.first(:user_id => user.id)
+		rescue
+			nil
+		end
 	end
 	def get_services(email)
-		user = get_user(email)
-		return user.role.services if user
-		return nil if user == nil
+		begin
+			user = get_user(email)
+			return user.role.services if user
+			return nil if user == nil
+		rescue
+			nil
+		end
 	end
 	def confirm_register(token) #tested
 		# xac nhan dang ky va kich hoat thanh cong
@@ -127,6 +140,7 @@ class UserService
 			token = token.strip unless token.blank?
 			activate_token = Activation.first(:token => token)
 			if activate_token then 
+				return {:code => -1, :msg => 'Vé đăng ký đã được sử dụng'} if activate_token.status == 1
 				if activate_token.created_at + 3*3600*24 <= DateTime.parse(Time.now.to_s) # expire
 					return {:code => -1, :msg => 'Vé đăng ký đã quá hạn, vui lòng đăng nhập để kích hoạt lại.'} # expired
 				end
@@ -136,10 +150,12 @@ class UserService
 					user.status = 1 
 					activate_token.token = Time.now.to_s
 					activate_token.status = 1				
-					if user.save and activate_token.save then return {:code => 1, :msg => 'Tài khoản của bạn đã được kích hoạt thành công. Bạn có thể đăng nhập'} end
+					if user.save and activate_token.save then return {:code => 1, :msg => 'Tài khoản của bạn đã được kích hoạt thành công.'} end
 				else
 					return {:code => 2, :msg => 'Tài khoản này đã kích hoạt, vui lòng đăng nhập'}
 				end
+			else
+				return {:code => -1, :msg => 'Vé đăng ký không tồn tại'}
 			end
 		rescue
 			return {:code => -2, :msg => 'Unknown error'}
@@ -151,6 +167,11 @@ class UserService
 			user = get_user(email)
 			return {:code => -1, :msg => 'Tài khoản này không tồn tại, vui lòng đăng ký'} if user == nil 
 			return {:code => 2, :msg => 'Tài khoản này đã kích hoạt'} if user.status == 1
+			user.activations do |act|
+				if act then
+					act.status = 1
+				end
+			end
 			register_confirm = Activation.new(:token => SecureRandom.hex, :created_at => Time.now, :description => 'Register reconfirmation', :status => 0)			 
 			register_confirm.user = user
 			if user.save and register_confirm.save then 

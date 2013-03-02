@@ -2,13 +2,14 @@
 require 'sinatra/base'
 require 'cas_helpers'
 require 'rack-flash'
-#require 'rack/csrf'
+require 'rack/csrf'
 #require_relative './userservice_test'
 require_relative './userservice'
 class CasExample < Sinatra::Base
   #use Rack::Session::Cookie, :secret => 'changeme' #using session cookies in production with CAS is NOT recommended
   enable :sessions
   #use Rack::Csrf, :raise => true
+  use Rack::Csrf, :check_only => ['POST:/signup']
   use Rack::Flash, :sweep => true
   helpers CasHelpers
 
@@ -31,7 +32,7 @@ class CasExample < Sinatra::Base
   get "/" do   
     puts "ticket: #{session[:cas_ticket]}"  
     if !logged_in?(request, session) then       
-      erb :index
+      erb :index #, :locals => {:csrf => params[Rack::Csrf.field]}
     else      
       erb :home
     end
@@ -57,28 +58,30 @@ class CasExample < Sinatra::Base
   end
   # change profile
   post "/" do 
-    #redirect "/" unless logged_in
+    redirect "/" unless logged_in?(request, session) 
     email = params[:profile][:email].strip
     hovaten = params[:profile][:hovaten].strip
-    ngaysinh = params[:profile][:ngaysinh]
+    ngaysinh = params[:profile][:ngaysinh].strip
     #hovaten, ngaysinh, diachi, gioitinh, sodienthoai
-    diachi = params[:profile][:diachi]
-    gioitinh = params[:profile][:gioitinh]
+    diachi = params[:profile][:diachi].strip
+    gioitinh = params[:profile][:gioitinh].strip
     dienthoai = params[:profile][:dienthoai].strip
-    
-    begin
-          xngaysinh = Date.strptime(ngaysinh.strip, '%d/%m/%Y')
-    rescue
-        flash[:error] = "Vui lòng nhập ngày tháng theo định dạng ngày/tháng/năm (ví dụ: 18/05/1990)"
-        redirect "/"
+    unless ngaysinh.empty?
+      begin
+            ngaysinh = Date.strptime(ngaysinh, '%d/%m/%Y') 
+      rescue
+          flash[:error] = "Vui lòng nhập ngày tháng theo định dạng ngày/tháng/năm (ví dụ: 18/05/1990)"
+          redirect "/"
+      end
     end
+
     xprofile = {
-      :email => email,
-      :hovaten => hovaten,
-      :ngaysinh => xngaysinh,
-      :diachi => diachi,
-      :gioitinh => gioitinh,
-      :dienthoai => dienthoai}
+      :email => (email if @@us.checkrealmail(email) ),
+      :hovaten => (hovaten unless hovaten.empty?),
+      :ngaysinh => (ngaysinh unless ngaysinh.empty?),
+      :diachi => (diachi unless diachi.empty?),
+      :gioitinh => (gioitinh unless gioitinh.empty?),
+      :dienthoai => (dienthoai unless dienthoai.empty?)}
     v = @@us.changeprofile(session[:cas_user], xprofile)
     case v[:code]
     when -1
@@ -143,8 +146,12 @@ class CasExample < Sinatra::Base
 
 
     email = params[:user][:email].gsub(/\s+/, "")
+    if @@us.checkrealmail(email) == false then
+      flash[:error] = 'Email này không hợp lệ, vui lòng thử lại'
+      redirect '/'
+    end
     if @@us.get_user(email) then
-      flash[:warning] = 'Email nay da ton tai'
+      flash[:warning] = 'Email này đã tồn tại, nếu bạn quên mật khẩu, vui lòng khởi tạo mật khẩu'
       redirect '/'
     end
     password = params[:user][:password].gsub(/\s+/, "")

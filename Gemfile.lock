@@ -64,6 +64,7 @@ GEM
       data_objects (= 0.10.12)
     do_postgres (0.10.12-x86-mingw32)
       data_objects (= 0.10.12)
+    email_veracity (0.6.0)
     facter (1.6.17)
     fastercsv (1.5.5)
     gyoku (1.0.0)
@@ -130,6 +131,7 @@ DEPENDENCIES
   data_mapper
   dm-postgres-adapter
   dm-validations
+  email_veracity
   pony
   puma
   rack-flash3

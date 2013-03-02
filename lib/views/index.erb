@@ -169,8 +169,8 @@ $("#datepicker").datepicker();
       <% end %> 
         <form action="/reset" method="post" data-validate="parsley" >        
           <fieldset>
-            <legend>Reset password</legend> 
-
+            <legend>Khởi tạo mật khẩu</legend> 
+              <%= Rack::Csrf.tag(env) %>
              <div class="row">
               <div class="one whole padded">
                 <label for="email">Địa chỉ Email</label>
@@ -189,36 +189,39 @@ $("#datepicker").datepicker();
 
       <script id="signupTpl" type="text/template">    
          <% flash_types.select{ |kind| flash.has?(kind) }.each do |kind| %>
-<div class="flash <%= kind %>">
-  <%= flash[kind] %>
-</div>
-<% end %> 
-        <form action="/signup" method="post" data-validate="parsley" >
-        
-          <fieldset>
+         <div class="row">         
+          <div class="one whole padded">
+              <div class="flash <%= kind %>">
+                <%= flash[kind] %>
+              </div>
+              <% end %> 
+          </div>
+        </div>
+        <form action="/signup" method="post" data-validate="parsley" >          
+            <%= Rack::Csrf.tag(env) %>
              <div class="row" id="msv">
               <div class="one whole padded">
                 <label for="msv">Mã sinh viên (Nếu bạn là sinh viên)</label>
-                <input type="text" name="user[msv]" placeholder="Mã sinh viên" id="msv" />
+                <input type="text" name="user[msv]" placeholder="Mã sinh viên" id="msv" data-type="digits" data-maxlength="11" data-validation-minlength="6" data-maxlength-message="Mã sinh viên không đúng" />
               </div>
             </div>
 
             <div class="row">
               <div class="one whole padded">
                 <label for="email">Địa chỉ Email: (<strong>Bắt buộc</strong>)</label>
-                <input type="email" name="user[email]" placeholder="Email" id="email" data-type="email" data-trigger="change" data-validation-minlength="3" data-required="true" data-type-email-message="Phải là email" data-minlength-message="Độ dài email quá ngắn" data-required-message="Trường email là bắt buộc" />
+                <input type="email" name="user[email]" placeholder="Email" id="email" data-type="email" data-trigger="change" data-notblank="true" data-required="true" data-type-email-message="Email phải có định dạng Email, ví dụ test@gmail.com" data-notblank-message="Độ dài email quá ngắn" data-required-message="Trường email là bắt buộc"  />
               </div>
             </div>
             <div class="row">
               <div class="one whole padded">
-                <label for="password">Password</label>
-                <input type="password" name="user[password]" placeholder="Mật khẩu" id="password" data-minlength="6" data-trigger="change" data-minlength-message="Mật khẩu quá ngắn, phải có ít nhất 6 ký tự"  />
+                <label for="password">Mật khẩu:</label>
+                <input type="password" name="user[password]" placeholder="Mật khẩu" id="password" data-minlength="6"  data-minlength-message="Mật khẩu quá ngắn, phải có ít nhất 6 ký tự"  data-notblank="true" data-required="true" data-notblank-message="Mật khẩu quá ngắn" data-required-message="Mật khẩu là bắt buộc" />
               </div>
             </div>
             <div class="row">
               <div class="one whole padded">
-                <label for="password2">Password</label>
-                <input type="password" name="user[password2]" placeholder="Xác nhận mật khẩu" id="password2" data-trigger="change" data-minlength="6" data-minlength-message="Mật khẩu quá ngắn, phải có ít nhất 6 ký tự" data-equalto="#password" data-equalto-message="Mật khẩu xác nhận không trùng mật khẩu ban đầu" />
+                <label for="password2">Xác nhận mật khẩu:</label>
+                <input type="password" name="user[password2]" placeholder="Xác nhận mật khẩu" id="password2"  data-minlength="6" data-minlength-message="Mật khẩu quá ngắn, phải có ít nhất 6 ký tự" data-equalto="#password" data-equalto-message="Mật khẩu xác nhận không trùng mật khẩu ban đầu"  data-notblank="true" data-required="true" data-notblank-message="Mật khẩu quá ngắn" data-required-message="Mật khẩu là bắt buộc"  />
               </div>
             </div>            
           
@@ -227,7 +230,7 @@ $("#datepicker").datepicker();
                 <button type="submit">Đăng ký</button> 
               </div>
             </div>                       
-          </fieldset>
+          
          
         </form>
         </script>
